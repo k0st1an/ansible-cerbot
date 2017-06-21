@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Konstantin Kruglov
+  description: deploy cerbot for let's encrypt
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+
+  galaxy_tags:
+    - security
+    - https
+    - web
+
+dependencies: []

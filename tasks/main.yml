@@ -1,0 +1,29 @@
+---
+# tasks file for ansible-cerbot
+- name: Adding Debian backports repository
+  apt_repository:
+    repo: 'deb http://ftp.debian.org/debian {{ ansible_distribution_release }}-backports main'
+    state: present
+
+- name: Install certbot
+  apt:
+    name: certbot
+    default_release: '{{ ansible_distribution_release }}-backports'
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Set up vers into cron
+  tags: cerbot-cron
+  cronvar:
+    user: root
+    name: PATH
+    value: /sbin:/bin:/usr/bin:/usr/local/bin
+
+- name: set up job for renew certs
+  tags: cerbot-cron
+  cron:
+    name: renew certs
+    special_time: '{{ cerbot_cron_time }}'
+    user: root
+    job: certbot renew --pre-hook "systemctl stop nginx.service" --post-hook "systemctl start nginx.service"
