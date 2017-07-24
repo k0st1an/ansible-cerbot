@@ -1,11 +1,11 @@
-# Ansible role Cerbot
+# Ansible role Certbot
 
 ## Example Playbook
 
 ```yml
 - hosts: servers
   roles:
-     - k0st1an.cerbot
+     - k0st1an.certbot
 ```
 
 ## License
